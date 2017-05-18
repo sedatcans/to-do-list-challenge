@@ -1,17 +1,18 @@
 package com.sedatcan.service.impl;
 
-import com.sedatcan.common.BaseServiceTest;
 import com.sedatcan.model.CustomerDto;
 import com.sedatcan.security.TokenAuthenticationService;
 import com.sedatcan.service.CustomerService;
 import com.sedatcan.service.Tokenizer;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
@@ -24,8 +25,9 @@ import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+@RunWith(SpringRunner.class)
 @SpringBootTest(classes = TokenAuthenticationService.class)
-public class TokenAuthenticationServiceImplTest extends BaseServiceTest {
+public class TokenAuthenticationServiceImplTest {
 
     @Autowired
     private TokenAuthenticationService tokenAuthenticationService;
@@ -74,13 +76,13 @@ public class TokenAuthenticationServiceImplTest extends BaseServiceTest {
         MockHttpServletRequest mockHttpServletRequest = new MockHttpServletRequest();
         mockHttpServletRequest.addHeader("X-CLIENT-TOKEN", token);
 
-        when(tokenizer.parseTokenAndClaim("todolistappsecret", token, "customer_id",String.class)).thenReturn("Customer1");
+        when(tokenizer.parseTokenAndClaim("todolistappsecret", token, "customer_id", String.class)).thenReturn("Customer1");
         when(customerService.getById("Customer1")).thenReturn(CustomerDto.builder().id("Customer1").build());
         CustomerDto authentication = (CustomerDto) tokenAuthenticationService.getAuthentication(mockHttpServletRequest);
 
         assertThat(authentication.isAuthenticated(), equalTo(true));
         verify(customerService).getById("Customer1");
-        verify(tokenizer).parseTokenAndClaim("todolistappsecret", token, "customer_id",String.class);
+        verify(tokenizer).parseTokenAndClaim("todolistappsecret", token, "customer_id", String.class);
     }
 
 }

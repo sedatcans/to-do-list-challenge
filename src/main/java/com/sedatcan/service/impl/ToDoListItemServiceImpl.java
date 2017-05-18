@@ -1,10 +1,13 @@
 package com.sedatcan.service.impl;
 
 import com.sedatcan.entity.ToDoListItem;
+import com.sedatcan.exception.ToDoListErrorCode;
+import com.sedatcan.exception.ToDoListException;
 import com.sedatcan.model.*;
 import com.sedatcan.repository.ToDoListItemRepository;
 import com.sedatcan.service.ToDoListItemService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
@@ -33,6 +36,9 @@ public class ToDoListItemServiceImpl implements ToDoListItemService {
     @Override
     public UpdateListToDoListItemResponse update(String itemId, UpdateListToDoListItemRequest updateListToDoListItemRequest) {
         CustomerDto customer = (CustomerDto) SecurityContextHolder.getContext().getAuthentication();
+        if (updateListToDoListItemRequest.getToDoListItemDto().getCustomerId() != customer.getId()) {
+            throw new ToDoListException(ToDoListErrorCode.UNAUTHORIZED_REQUEST, HttpStatus.UNAUTHORIZED);
+        }
         ToDoListItem toDoListItem = ToDoListItem.builder()
                 .id(itemId)
                 .createdDate(updateListToDoListItemRequest.getToDoListItemDto().getCreatedDate())

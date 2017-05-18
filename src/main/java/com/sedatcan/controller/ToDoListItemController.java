@@ -17,12 +17,12 @@ public class ToDoListItemController {
     @PostMapping
     public ResponseEntity<CreateListToDoListItemResponse> create(@RequestBody CreateListToDoListItemRequest createListToDoListItemRequest) {
         toDoListItemService.create(createListToDoListItemRequest);
-        return new ResponseEntity<CreateListToDoListItemResponse>( HttpStatus.CREATED);
+        return new ResponseEntity<CreateListToDoListItemResponse>(HttpStatus.CREATED);
     }
 
-    @PostMapping("/{itemId}")
-    public ResponseEntity<UpdateListToDoListItemResponse> update(@PathVariable String itemId ,@RequestBody UpdateListToDoListItemRequest updateListToDoListItemRequest) {
-        toDoListItemService.update(itemId,updateListToDoListItemRequest);
+    @PutMapping("/{itemId}")
+    public ResponseEntity<UpdateListToDoListItemResponse> update(@PathVariable String itemId, @RequestBody UpdateListToDoListItemRequest updateListToDoListItemRequest) {
+        toDoListItemService.update(itemId, updateListToDoListItemRequest);
         return new ResponseEntity<UpdateListToDoListItemResponse>(HttpStatus.OK);
     }
 
@@ -30,5 +30,4 @@ public class ToDoListItemController {
     public ResponseEntity<ToDoListItemsOfCustomerResponse> getAll() {
         return new ResponseEntity<ToDoListItemsOfCustomerResponse>(toDoListItemService.getAllItems(), HttpStatus.OK);
     }
-
 }

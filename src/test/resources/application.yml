@@ -1,0 +1,4 @@
+spring:
+  profiles: unit-test
+  autoconfigure:
+    exclude: CouchbaseAutoConfiguration.class

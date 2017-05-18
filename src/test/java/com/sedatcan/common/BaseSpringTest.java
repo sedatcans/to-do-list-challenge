@@ -27,6 +27,7 @@ public abstract class BaseSpringTest {
     public void after() {
         verifyNoMoreInteractionsWithMockedBeans();
     }
+
     protected InOrder inOrderVerifier() {
         return inOrder(collectMockedBeans());
     }

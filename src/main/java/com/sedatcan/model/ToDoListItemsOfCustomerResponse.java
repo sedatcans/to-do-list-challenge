@@ -3,6 +3,7 @@ package com.sedatcan.model;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.Singular;
 
 import java.util.List;
 
@@ -10,5 +11,6 @@ import java.util.List;
 @AllArgsConstructor
 @Data
 public class ToDoListItemsOfCustomerResponse {
-    private List<ToDoListItemDto> toDoListItems;
+    private @Singular
+    List<ToDoListItemDto> toDoListItems;
 }

@@ -16,7 +16,7 @@ public class CustomerAuthenticationFilter extends GenericFilterBean {
     private TokenAuthenticationService tokenAuthenticationService;
 
     public CustomerAuthenticationFilter(TokenAuthenticationService tokenAuthenticationService) {
-        this.tokenAuthenticationService =tokenAuthenticationService;
+        this.tokenAuthenticationService = tokenAuthenticationService;
     }
 
     @Override

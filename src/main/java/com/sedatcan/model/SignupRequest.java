@@ -1,8 +1,12 @@
 package com.sedatcan.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 
 @Data
+@Builder
+@AllArgsConstructor
 public class SignupRequest {
 
     private String password;

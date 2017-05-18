@@ -1,16 +1,12 @@
 package com.sedatcan.service.impl;
 
 import com.sedatcan.common.BaseServiceTest;
-import com.sedatcan.security.TokenAuthenticationService;
-import com.sedatcan.service.CustomerService;
 import com.sedatcan.service.Tokenizer;
-import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.HashMap;
 
@@ -33,7 +29,7 @@ public class TokenizerImplTest extends BaseServiceTest {
 
         String token = tokenizer.generateToken("Customer1", 60L, SignatureAlgorithm.HS512, secret, claimsMap);
 
-        assertThat(token,not(isEmptyString()));
-        assertThat(tokenizer.parseTokenAndClaim(secret, token, "customerId",String.class), equalTo("Customer1"));
+        assertThat(token, not(isEmptyString()));
+        assertThat(tokenizer.parseTokenAndClaim(secret, token, "customerId", String.class), equalTo("Customer1"));
     }
 }
