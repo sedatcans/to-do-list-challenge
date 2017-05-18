@@ -1,0 +1,27 @@
+spring:
+  couchbase:
+    bootstrap-hosts: 192.168.99.100:11211
+    env:
+      timeouts:
+        connect: 100000
+        socket-connect: 100000
+    bucket:
+      name: todolist
+      password: password
+  data:
+    couchbase:
+      auto-index: true
+logging:
+  level: debug
+
+---
+
+spring:
+  profiles: dev
+  datasource:
+    url:
+    username:
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: update
