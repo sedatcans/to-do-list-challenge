@@ -1,5 +1,6 @@
 package com.sedatcan.common;
 
+import com.sedatcan.configuration.WebSecurityConfiguration;
 import com.sedatcan.repository.CustomerRepository;
 import com.sedatcan.repository.ToDoListItemRepository;
 import com.sedatcan.security.TokenAuthenticationService;
@@ -12,6 +13,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
         CustomerRepository.class,
         ToDoListItemRepository.class,
         TokenAuthenticationService.class})
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
+@SpringBootTest()
 public abstract class BaseServiceTest extends BaseSpringTest {
 }

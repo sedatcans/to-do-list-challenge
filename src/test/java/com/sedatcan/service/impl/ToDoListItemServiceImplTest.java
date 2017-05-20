@@ -72,13 +72,13 @@ public class ToDoListItemServiceImplTest extends BaseServiceTest {
     @Test(expected = ToDoListException.class)
     public void shouldUpdateItemIdNotMatch() throws Exception {
         UpdateListToDoListItemRequest updateListToDoListItemRequest = UpdateListToDoListItemRequest.builder()
-                .toDoListItemDto(ToDoListItemDto.builder().id("id2").status(ToDoListItem.Status.DONE).note("note").build()).build();
+                .toDoListItemDto(ToDoListItemDto.builder().customerId("custId2").id("id2").status(ToDoListItem.Status.DONE).note("note").build()).build();
 
         SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
-        securityContext.setAuthentication(CustomerDto.builder().id("id").build());
+        securityContext.setAuthentication(CustomerDto.builder().id("custId").build());
         SecurityContextHolder.setContext(securityContext);
 
-        toDoListItemService.update("id", updateListToDoListItemRequest);
+        toDoListItemService.update("id2", updateListToDoListItemRequest);
     }
 
     @Test

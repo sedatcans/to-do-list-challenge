@@ -36,7 +36,7 @@ public class ToDoListItemServiceImpl implements ToDoListItemService {
     @Override
     public UpdateListToDoListItemResponse update(String itemId, UpdateListToDoListItemRequest updateListToDoListItemRequest) {
         CustomerDto customer = (CustomerDto) SecurityContextHolder.getContext().getAuthentication();
-        if (updateListToDoListItemRequest.getToDoListItemDto().getCustomerId() !=null && updateListToDoListItemRequest.getToDoListItemDto().getCustomerId() != customer.getId()) {
+        if (updateListToDoListItemRequest.getToDoListItemDto().getCustomerId() !=null && !updateListToDoListItemRequest.getToDoListItemDto().getCustomerId().equals(customer.getId())) {
             throw new ToDoListException(ToDoListErrorCode.UNAUTHORIZED_REQUEST, HttpStatus.UNAUTHORIZED);
         }
         ToDoListItem toDoListItem = ToDoListItem.builder()

@@ -55,7 +55,9 @@ public class TokenAuthenticationService implements AuthenticationProvider {
         }
         CustomerDto customerDto = (CustomerDto) authentication;
         try {
-            response.getWriter().write(generateToken(customerDto));
+            String token = generateToken(customerDto);
+            response.addHeader("X-CLIENT-TOKEN", token);
+            response.getWriter().write(token);
             response.getWriter().flush();
             response.getWriter().close();
         }catch (IOException e){
