@@ -17,6 +17,7 @@ import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -53,7 +54,13 @@ public class TokenAuthenticationService implements AuthenticationProvider {
             throw new ToDoListException(ToDoListErrorCode.UNAUTHORIZED_REQUEST, HttpStatus.UNAUTHORIZED);
         }
         CustomerDto customerDto = (CustomerDto) authentication;
-        response.addHeader(AUTH_HEADER, generateToken(customerDto));
+        try {
+            response.getWriter().write(generateToken(customerDto));
+            response.getWriter().flush();
+            response.getWriter().close();
+        }catch (IOException e){
+            throw new ToDoListException(ToDoListErrorCode.UNAUTHORIZED_REQUEST,HttpStatus.UNAUTHORIZED);
+        }
     }
 
     public Authentication getAuthentication(HttpServletRequest request) {

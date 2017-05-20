@@ -13,6 +13,11 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import java.util.Arrays;
 
 @EnableWebSecurity
 @EnableGlobalMethodSecurity
@@ -40,6 +45,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authenticated();// H2 Console Dash-board - only for testing
         http.addFilterBefore(customerLoginFilter(), UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(customerAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+        http.cors();
     }
 
     @Bean

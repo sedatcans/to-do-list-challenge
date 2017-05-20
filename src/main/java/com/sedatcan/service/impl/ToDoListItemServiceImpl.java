@@ -22,7 +22,7 @@ public class ToDoListItemServiceImpl implements ToDoListItemService {
 
     @Override
     public CreateListToDoListItemResponse create(CreateListToDoListItemRequest createListToDoListItemRequest) {
-        CustomerDto customer = (CustomerDto) SecurityContextHolder.getContext().getAuthentication();
+            CustomerDto customer = (CustomerDto) SecurityContextHolder.getContext().getAuthentication();
         ToDoListItem toDoListItem = ToDoListItem.builder()
                 .id("Item" + toDoListItemRepository.getCouchbaseOperations().getCouchbaseBucket().counter("idGeneratorForItem", 1, 0).content())
                 .createdDate(new Date())
@@ -36,7 +36,7 @@ public class ToDoListItemServiceImpl implements ToDoListItemService {
     @Override
     public UpdateListToDoListItemResponse update(String itemId, UpdateListToDoListItemRequest updateListToDoListItemRequest) {
         CustomerDto customer = (CustomerDto) SecurityContextHolder.getContext().getAuthentication();
-        if (updateListToDoListItemRequest.getToDoListItemDto().getCustomerId() != customer.getId()) {
+        if (updateListToDoListItemRequest.getToDoListItemDto().getCustomerId() !=null && updateListToDoListItemRequest.getToDoListItemDto().getCustomerId() != customer.getId()) {
             throw new ToDoListException(ToDoListErrorCode.UNAUTHORIZED_REQUEST, HttpStatus.UNAUTHORIZED);
         }
         ToDoListItem toDoListItem = ToDoListItem.builder()

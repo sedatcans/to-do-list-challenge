@@ -1,6 +1,6 @@
 spring:
   couchbase:
-    bootstrap-hosts: 192.168.99.100:11211
+    bootstrap-hosts: couchbase
     env:
       timeouts:
         connect: 100000
